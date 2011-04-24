@@ -1,0 +1,16 @@
+# -*- python -*-
+
+def options(opt):
+    pass
+
+def configure(conf):
+    pass
+
+def build(bld):
+    bld.stlib(
+        target = 'rui_archive',
+        name = 'rui.archive',
+        source = 'msgpack_oarchive.cpp msgpack_iarchive.cpp',
+        includes = '../../include',
+        install_path = '${PREFIX}/lib'
+    )

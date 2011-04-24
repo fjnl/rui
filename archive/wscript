@@ -1,0 +1,14 @@
+# -*- python -*-
+
+def rec(ctx):
+    for dir in ['lib', 'test']:
+        ctx.recurse(dir)
+
+def options(opt):
+    rec(opt)
+
+def configure(conf):
+    rec(conf)
+
+def build(bld):
+    rec(bld)
