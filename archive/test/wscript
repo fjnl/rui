@@ -29,7 +29,7 @@ def build(bld):
 
         bld.program(
             features = 'testt',
-            target = 'test_%s' % t[0],
+            target = 'test.archive.%s' % t[0],
             source = ['test_%s.cpp' % t[0]] +
             (['A.cpp'] if 'A' in t else []) +
             (['polymorphic_base.cpp'] if 'B' in t else []) +
@@ -42,7 +42,7 @@ def build(bld):
 
     bld.program(
         features = 'testt',
-        target = 'test_msgpack',
+        target = 'test.archive.msgpack',
         source = 'test_msgpack.cpp',
         use = 'boost.serialization boost.filesystem boost.system msgpack rui.archive',
         includes = '../../include',
