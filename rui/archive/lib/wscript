@@ -11,6 +11,6 @@ def build(bld):
         target = 'rui_archive',
         name = 'rui.archive',
         source = 'msgpack_oarchive.cpp msgpack_iarchive.cpp',
-        includes = '../../include',
+        includes = '../../../include',
         install_path = '${PREFIX}/lib'
     )

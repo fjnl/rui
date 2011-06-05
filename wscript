@@ -12,7 +12,7 @@ def options(opt):
         action = 'store',
         default = False
     )
-    opt.recurse('archive')
+    opt.recurse('rui')
 
 def configure(conf):
     def append_flags(*flags):
@@ -27,9 +27,9 @@ def configure(conf):
     if conf.options.disable_assert:
         append_flags('-DNDEBUG')
 
-    conf.recurse('archive')
+    conf.recurse('rui')
 
 def build(bld):
     include = bld.path.find_dir('include')
     bld.install_files('${PREFIX}', include.ant_glob('**/*'), relative_trick = True)
-    bld.recurse('archive')
+    bld.recurse('rui')

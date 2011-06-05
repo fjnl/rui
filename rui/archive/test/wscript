@@ -35,7 +35,7 @@ def build(bld):
             (['polymorphic_base.cpp'] if 'B' in t else []) +
             (['polymorphic_derived1.cpp'] if 'D' in t else []),
             use = 'boost.serialization boost.filesystem boost.system msgpack rui.archive',
-            includes = '../../include',
+            includes = '../../../include',
             install_path = False,
             env = boost
         )
@@ -45,7 +45,7 @@ def build(bld):
         target = 'test.archive.msgpack',
         source = 'test_msgpack.cpp',
         use = 'boost.serialization boost.filesystem boost.system msgpack rui.archive',
-        includes = '../../include',
+        includes = '../../../include',
         defines = 'BOOST_TEST_MAIN',
         install_path = False,
     )
