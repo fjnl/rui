@@ -2,7 +2,7 @@
 #define POLYMORPHIC_DERIVED2_HPP
 
 // MS compatible compilers support #pragma once
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+#if defined(_MSC_VER)
 # pragma once
 #endif
 
@@ -25,16 +25,6 @@
 #include <boost/preprocessor/empty.hpp>
 
 #include "polymorphic_base.hpp"
-
-#include "test_decl.hpp"
-
-#if defined(POLYMORPHIC_DERIVED2_IMPORT)
-    #define DLL_DECL IMPORT_DECL
-#elif defined(POLYMORPHIC_DERIVED2_EXPORT)
-    #define DLL_DECL EXPORT_DECL
-#else
-    #define DLL_DECL(x)
-#endif
 
 class DLL_DECL(BOOST_PP_EMPTY()) polymorphic_derived2 : 
     public polymorphic_base

@@ -4,7 +4,6 @@
 #include <cstring>
 #include <string>
 #include <boost/archive/archive_exception.hpp>
-#include <boost/archive/shared_ptr_helper.hpp>
 #include <boost/archive/detail/common_iarchive.hpp>
 #include <boost/archive/detail/register_archive.hpp>
 #include <msgpack.hpp>
@@ -15,8 +14,7 @@ namespace archive = boost::archive;
 namespace serialization = boost::serialization;
 
 struct msgpack_iarchive
-    : archive::detail::common_iarchive<msgpack_iarchive>,
-      archive::detail::shared_ptr_helper {
+    : archive::detail::common_iarchive<msgpack_iarchive> {
     friend class boost::archive::load_access;
     friend class boost::archive::detail::interface_iarchive<msgpack_iarchive>;
 
@@ -29,11 +27,11 @@ struct msgpack_iarchive
         unpack(unpacked);
 
         msgpack::object const o = unpacked.get();
-        if (o.type != msgpack::type::RAW || o.via.raw.size != size) {
+        if (o.type != msgpack::type::BIN || o.via.bin.size != size) {
             throw msgpack::type_error();
         }
 
-        std::memcpy(buffer, o.via.raw.ptr, size);
+        std::memcpy(buffer, o.via.bin.ptr, size);
     }
 
 private:
@@ -67,13 +65,13 @@ private:
         unpack(unpacked);
 
         msgpack::object const o = unpacked.get();
-        if (o.type != msgpack::type::RAW || o.via.raw.size % sizeof(wchar_t) != 0) {
+        if (o.type != msgpack::type::BIN || o.via.bin.size % sizeof(wchar_t) != 0) {
             throw msgpack::type_error();
         }
 
         v.assign(
-            reinterpret_cast<wchar_t const*>(o.via.raw.ptr),
-            reinterpret_cast<wchar_t const*>(o.via.raw.ptr + o.via.raw.size)
+            reinterpret_cast<wchar_t const*>(o.via.bin.ptr),
+            reinterpret_cast<wchar_t const*>(o.via.bin.ptr + o.via.bin.size)
         );
     }
 

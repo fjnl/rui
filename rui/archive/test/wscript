@@ -4,25 +4,17 @@ def options(opt):
     pass
 
 def configure(conf):
-    conf.check_cxx(lib = 'msgpack', uselib_store = 'msgpack', mandatory = True)
-    conf.check_cxx(lib = 'boost_serialization-mt', uselib_store = 'boost.serialization', mandatory = True)
-    conf.check_cxx(lib = 'boost_system-mt', uselib_store = 'boost.system', mandatory = True)
-    conf.check_cxx(lib = 'boost_filesystem-mt', uselib_store = 'boost.filesystem', mandatory = True)
+    conf.check_cxx(lib = 'boost_serialization', uselib_store = 'boost.serialization', mandatory = True)
+    conf.check_cxx(lib = 'boost_system', uselib_store = 'boost.system', mandatory = True)
+    conf.check_cxx(lib = 'boost_filesystem', uselib_store = 'boost.filesystem', mandatory = True)
 
 tests_from_boost = """
-array,A binary bitset complex contained_class,A cyclic_ptrs,A delete_pointer
-deque,A derived derived_class,A derived_class_ptr,A diamond diamond_complex
-class_info_load class_info_save object primitive list,A list_ptrs,A map,A mi
-multiple_ptrs,A multiple_inheritance non_intrusive non_default_ctor
-non_default_ctor2 null_ptr nvp,A recursion,A registered set,A simple_class,A
-simple_class_ptr,A split tracking unregistered valarray variant,A vector,A
-new_operator,A optional shared_ptr shared_ptr_multi_base shared_ptr_132
-exported,B no_rtti,B,D
+array,A binary class_info_load class_info_save bitset complex contained_class,A cyclic_ptrs,A delete_pointer deque,A derived derived_class,A derived_class_ptr,A diamond diamond_complex exported,B helper_support list,A list_ptrs,A map,A mi multiple_ptrs,A multiple_inheritance no_rtti,B,D non_intrusive non_default_ctor non_default_ctor2 null_ptr nvp,A object primitive priority_queue,A queue,A recursion,A registered set,A simple_class,A simple_class_ptr,A split stack,A tracking unregistered unique_ptr valarray variant,A vector,A new_operator,A optional shared_ptr shared_ptr_multi_base shared_ptr_132
 """.split()
 
 def build(bld):
     boost = bld.env.derive()
-    boost.append_unique('CXXFLAGS', '-DBOOST_ARCHIVE_TEST=msgpack_archive.hpp')
+    boost.append_unique('CXXFLAGS', '-DBOOST_ARCHIVE_TEST=text_archive.hpp')
 
     for t in tests_from_boost:
         t = t.split(',')
