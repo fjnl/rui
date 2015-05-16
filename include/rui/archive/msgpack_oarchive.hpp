@@ -4,7 +4,6 @@
 #include <cstring>
 #include <string>
 #include <boost/archive/archive_exception.hpp>
-#include <boost/archive/shared_ptr_helper.hpp>
 #include <boost/archive/detail/common_oarchive.hpp>
 #include <boost/archive/detail/register_archive.hpp>
 #include <msgpack.hpp>
@@ -15,8 +14,7 @@ namespace archive = boost::archive;
 namespace serialization = boost::serialization;
 
 struct msgpack_oarchive
-    : archive::detail::common_oarchive<msgpack_oarchive>,
-      archive::detail::shared_ptr_helper {
+    : archive::detail::common_oarchive<msgpack_oarchive> {
     friend class boost::archive::save_access;
     friend class boost::archive::detail::interface_oarchive<msgpack_oarchive>;
 
@@ -25,8 +23,8 @@ struct msgpack_oarchive
     : stream_(stream), packer_(stream) {}
 
     void save_binary(void const* buffer, size_t size) {
-        packer_.pack_raw(size);
-        packer_.pack_raw_body(static_cast<char const*>(buffer), size);
+        packer_.pack_bin(size);
+        packer_.pack_bin_body(static_cast<char const*>(buffer), size);
         check_stream();
     }
 
